@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>恭賀新喜 - 幸福教養概念館</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="manifest" id="manifest-placeholder">
     <meta name="theme-color" content="#b91c1c">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/noto-emoji/svg?seed=Lucky">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap');
         
@@ -50,10 +46,10 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .modal-enter { animation: fadeIn 0.5s ease-out; }
+        .modal-enter { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .sparkle {
@@ -66,6 +62,9 @@
         @keyframes fall {
             to { transform: translateY(100vh) rotate(360deg); }
         }
+
+        /* 詞組保護與甜美感 */
+        .phrase { display: inline-block; letter-spacing: 0.15em; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-between p-4 pb-12 relative">
@@ -74,137 +73,127 @@
     <div id="sparkle-container" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
 
     <!-- 頂部裝飾：燈籠 -->
-    <div class="fixed top-0 left-0 right-0 flex justify-between px-6 z-20">
+    <div class="fixed top-0 left-0 right-0 flex justify-between px-8 z-20">
         <div class="lantern text-2xl mt-[-2px]">🏮</div>
         <div class="lantern text-2xl mt-[-2px]" style="animation-delay: 0.5s">🏮</div>
     </div>
 
     <!-- 主內容區 -->
-    <main class="w-full max-w-md mx-auto text-center z-10 pt-10">
-        <header class="mb-6">
-            <h2 class="text-base opacity-80 tracking-widest mb-1">幸福教養概念館</h2>
+    <main class="w-full max-w-md mx-auto text-center z-10 pt-12">
+        <header class="mb-8">
+            <h2 class="text-base opacity-70 tracking-widest mb-1">幸福教養概念館</h2>
             <h1 class="serif text-4xl font-black gold-text drop-shadow-lg mb-2">恭賀新喜</h1>
-            <p class="text-amber-200 text-sm opacity-90">與天使笑長一起，用愛迎新年</p>
+            <p class="text-amber-200 text-sm opacity-80">與天使笑長一起，用愛迎新年</p>
         </header>
 
         <!-- 互動區：點擊福袋 -->
-        <div id="main-action" class="relative py-4">
+        <div id="main-action" class="relative py-6">
             <div id="luck-envelope" class="red-packet bg-gradient-to-br from-red-600 to-red-800 w-40 h-56 mx-auto rounded-xl shadow-2xl flex flex-col items-center justify-center border-4 border-amber-400 relative overflow-hidden">
                 <div class="absolute top-0 w-full h-1/2 bg-red-700 border-b-2 border-amber-500 rounded-b-[50%]"></div>
-                <div class="z-10 text-4xl mb-3">🧧</div>
-                <div class="z-10 bg-amber-400 text-red-800 font-bold px-3 py-1 rounded-full text-sm shadow-inner">
+                <div class="z-10 text-4xl mb-4">🧧</div>
+                <div class="z-10 bg-amber-400 text-red-800 font-bold px-4 py-1 rounded-full text-sm shadow-inner">
                     點擊開運
                 </div>
-                <div class="absolute bottom-3 text-amber-300 text-[9px] opacity-50">幸福智多星</div>
+                <div class="absolute bottom-3 text-amber-300 text-[9px] opacity-40">幸福智多星</div>
             </div>
         </div>
 
-        <!-- 快速功能鍵 -->
-        <div class="grid grid-cols-2 gap-3 mt-6">
-            <button onclick="generateGreeting()" class="bg-red-900/40 border border-amber-500/20 backdrop-blur-sm p-3 rounded-2xl flex flex-col items-center">
-                <span class="text-lg mb-1">✍️</span>
-                <span class="text-[11px] opacity-90">吉祥話</span>
-            </button>
-            <button onclick="showInstallationInfo()" class="bg-red-900/40 border border-amber-500/20 backdrop-blur-sm p-3 rounded-2xl flex flex-col items-center">
-                <span class="text-lg mb-1">📱</span>
-                <span class="text-[11px] opacity-90">安裝 App</span>
+        <!-- 功能鍵：重新命名為全家福吉言 -->
+        <div class="flex justify-center mt-8">
+            <button onclick="generateGreeting()" class="bg-red-900/40 border border-amber-500/20 backdrop-blur-sm px-8 py-3 rounded-2xl flex flex-col items-center hover:bg-red-900/60 transition-all">
+                <span class="text-xl mb-1">🐎</span>
+                <span class="text-[11px] opacity-90 tracking-widest">領取馬年全家福吉言</span>
             </button>
         </div>
     </main>
 
     <!-- 底部資訊 -->
-    <footer class="text-center z-10 mt-6 opacity-50 text-[9px]">
+    <footer class="text-center z-10 mt-8 opacity-40 text-[9px]">
         <p>© 2026 幸福教養概念館 | 天使笑長</p>
     </footer>
 
     <!-- 彈窗內容 (Modal) -->
     <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center p-6 hidden">
         <div class="absolute inset-0 bg-black/85 backdrop-blur-md" onclick="closeModal()"></div>
-        <div class="bg-white text-gray-800 w-full max-w-sm rounded-3xl p-6 shadow-2xl relative modal-enter">
-            <button onclick="closeModal()" class="absolute top-3 right-4 text-gray-400 text-xl">&times;</button>
+        <div class="bg-white text-gray-800 w-full max-w-sm rounded-3xl p-6 pt-8 shadow-2xl relative modal-enter">
+            <button onclick="closeModal()" class="absolute top-3 right-4 text-gray-400 text-xl hover:text-gray-600">&times;</button>
             <div id="modal-content" class="text-center">
                 <!-- 動態注入內容 -->
             </div>
-            <button onclick="closeModal()" class="w-full mt-6 bg-red-600 text-white py-2 rounded-xl font-bold text-xs hover:bg-red-700 transition-colors">
+            <button onclick="closeModal()" class="w-full mt-8 bg-red-600 text-white py-2.5 rounded-xl font-bold text-xs hover:bg-red-700 transition-colors shadow-lg">
                 收下祝福
             </button>
         </div>
     </div>
 
     <script>
-        // 1. 初始化 PWA Manifest
-        const manifest = {
-            "name": "恭賀新喜 - 天使笑長",
-            "short_name": "幸福新年",
-            "start_url": ".",
-            "display": "standalone",
-            "background_color": "#b91c1c",
-            "theme_color": "#b91c1c",
-            "icons": [{
-                "src": "https://api.dicebear.com/7.x/noto-emoji/svg?seed=Lucky",
-                "sizes": "512x512",
-                "type": "image/svg+xml"
-            }]
-        };
-        const manifestStr = JSON.stringify(manifest);
-        const blob = new Blob([manifestStr], {type: 'application/json'});
-        document.getElementById('manifest-placeholder').setAttribute('href', URL.createObjectURL(blob));
-
-        // 2. 祝福語庫
+        // 1. 馬年甜美祝福語庫：嚴格四句一行 (4-4 格式)
         const blessings = [
-            { title: "心靈成長", content: "新的一年，願我們都能成為那顆『飛得慢的衛星』，在自己的節奏中發光發亮。", author: "天使笑長" },
-            { title: "情緒智慧", content: "當你想吼出來的時候，記得先給心靈一個擁抱。新年，從溫柔對待自己開始。", author: "天使笑長" },
-            { title: "幸福秘訣", content: "世界因我而甜美，因為愛是教養中最強大的力量。新年快樂！", author: "天使笑長" },
-            { title: "正能量", content: "笑口常開，好事自然來。讓我們一起在新年裡練習幸福、實踐愛。", author: "天使笑長" },
-            { title: "親子連結", content: "不打不罵不是放任，而是用腦科學理解孩子。新的一年，與孩子重新建立愛的連結。", author: "天使笑長" }
+            { 
+                category: "親子守護",
+                title: "閃亮星光", 
+                content: '<span class="phrase">每個孩子</span> <span class="phrase">天生閃亮</span><br><span class="phrase">千里駿馬</span> <span class="phrase">陪他慢跑</span>', 
+                author: "天使笑長" 
+            },
+            { 
+                category: "伴侶親密",
+                title: "愛在當下", 
+                content: '<span class="phrase">並肩策馬</span> <span class="phrase">看見甜美</span><br><span class="phrase">愛與理解</span> <span class="phrase">勝過萬千</span>', 
+                author: "天使笑長" 
+            },
+            { 
+                category: "家人凝聚",
+                title: "溫暖港灣", 
+                content: '<span class="phrase">家如草原</span> <span class="phrase">綠意盎然</span><br><span class="phrase">龍馬精神</span> <span class="phrase">溫馨港灣</span>', 
+                author: "天使笑長" 
+            },
+            { 
+                category: "教養智慧",
+                title: "自由翱翔", 
+                content: '<span class="phrase">飛慢衛星</span> <span class="phrase">自由翱翔</span><br><span class="phrase">溫柔對待</span> <span class="phrase">愛是光芒</span>', 
+                author: "天使笑長" 
+            },
+            { 
+                category: "全家幸福",
+                title: "好運連連", 
+                content: '<span class="phrase">世界甜美</span> <span class="phrase">笑口常開</span><br><span class="phrase">歲歲年年</span> <span class="phrase">好運連連</span>', 
+                author: "天使笑長" 
+            }
         ];
 
+        // 2. 全家福吉言：上下各四個字 (創意版)
         const luckyPhrases = [
-            "龍騰虎躍 幸福相隨", "大吉大利 愛在當下", "平安喜樂 智慧增長", 
-            "五福臨門 教養順遂", "萬事如意 心靈自由", "富貴平安 幸福滿滿"
+            ["幸福笑長", "愛在當下"],
+            ["慢速衛星", "閃亮星光"],
+            ["並肩策馬", "暖心相傳"],
+            ["龍馬精神", "甜美永存"],
+            ["萬馬奔騰", "喜樂入門"],
+            ["教養馬到", "幸福成功"],
+            ["全家同心", "愛如春風"],
+            ["腦科實踐", "心靈放鬆"]
         ];
 
-        // 3. 功能：領取福袋
+        // 領取福袋功能
         document.getElementById('luck-envelope').addEventListener('click', () => {
             const b = blessings[Math.floor(Math.random() * blessings.length)];
             const content = `
-                <div class="text-red-600 text-[10px] font-bold mb-1 tracking-widest">── ${b.title} ──</div>
-                <div class="text-base serif font-bold text-gray-800 leading-relaxed mb-4 px-2">
-                    「${b.content}」
+                <div class="text-red-600 text-[9px] font-bold mb-3 tracking-[0.2em] opacity-80">── ${b.category} ‧ ${b.title} ──</div>
+                <div class="text-xl serif font-bold text-gray-800 leading-[2.2] mb-5 px-1 tracking-widest">
+                    ${b.content}
                 </div>
-                <div class="text-gray-400 text-[10px] italic">— ${b.author}</div>
+                <div class="text-gray-400 text-[10px] italic tracking-wider">— ${b.author} —</div>
             `;
             showModal(content);
         });
 
-        // 4. 功能：吉祥話產生器
+        // 全家福吉言產生器 (4-4 格式)
         function generateGreeting() {
-            const phrase = luckyPhrases[Math.floor(Math.random() * luckyPhrases.length)];
+            const pair = luckyPhrases[Math.floor(Math.random() * luckyPhrases.length)];
             const content = `
-                <div class="text-3xl mb-2">✨</div>
-                <h3 class="text-base font-black text-red-700 mb-3">隨機開運吉言</h3>
-                <div class="text-xl serif font-bold bg-amber-50 p-3 rounded-lg border border-amber-200">
-                    ${phrase}
-                </div>
-            `;
-            showModal(content);
-        }
-
-        // 5. 功能：安裝說明
-        function showInstallationInfo() {
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            let steps = "";
-            if (isIOS) {
-                steps = "點擊瀏覽器底部的「分享」按鈕，然後選擇「加入主畫面」。";
-            } else {
-                steps = "點擊瀏覽器右上角的「三個點」圖示，然後選擇「安裝應用程式」。";
-            }
-            const content = `
-                <div class="text-3xl mb-2">📱</div>
-                <h3 class="text-base font-bold mb-2">將幸福帶在身上</h3>
-                <p class="text-gray-500 text-xs mb-4">您可以將此 App 加入主畫面，隨時獲取天使笑長的祝福。</p>
-                <div class="bg-gray-50 p-3 rounded-xl text-[11px] text-left border-l-4 border-red-500 text-gray-600">
-                    ${steps}
+                <div class="text-3xl mb-4">🐎</div>
+                <h3 class="text-base font-black text-red-700 mb-4 tracking-widest">馬年全家福吉言</h3>
+                <div class="text-xl serif font-bold bg-amber-50 p-6 rounded-xl border border-amber-200 text-red-800 shadow-inner leading-[2.5] tracking-[0.3em]">
+                    ${pair[0]}<br>${pair[1]}
                 </div>
             `;
             showModal(content);
@@ -238,22 +227,7 @@
             }
         }
 
-        window.onload = () => {
-            createSparkles();
-            if ('serviceWorker' in navigator) {
-                const swCode = `
-                    self.addEventListener('install', (e) => {
-                        e.waitUntil(caches.open('pwa-v3').then(c => c.addAll(['/'])));
-                    });
-                    self.addEventListener('fetch', (e) => {
-                        e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
-                    });
-                `;
-                const swBlob = new Blob([swCode], {type: 'application/javascript'});
-                const swUrl = URL.createObjectURL(swBlob);
-                navigator.serviceWorker.register(swUrl).catch(() => {});
-            }
-        };
+        window.onload = createSparkles;
     </script>
 </body>
 </html>
